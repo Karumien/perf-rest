@@ -1,4 +1,4 @@
-# Performance test REST service
+# Performance Service
 
 * Dockered Spring Boot App
   * logback-spring.xml configured using LogstashTcpSocketAppender to transfer log statements to a logstash instance
