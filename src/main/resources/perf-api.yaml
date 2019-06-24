@@ -26,6 +26,12 @@ paths:
           required: true
           description: Sequence number of work indentification 
           type: integer
+        - name: category
+          in: query
+          description: Optional category of algorithm 0-9
+          required: false
+          type: integer
+          default: -1
         - name: nowork
           in: query
           description: Optional enable no work simulation 
@@ -35,6 +41,7 @@ paths:
           in: query
           description: Optional enable delay in ms, default is 100ms
           required: false
+          default: 100
           type: integer
       responses:
         '200':

@@ -16,12 +16,12 @@ import com.karumien.cloud.perf.model.PerformanceData;
  */
 public interface PerformanceDataService {
 
-	/**
-	 * Return data for specific algorithm
-	 * 
-	 * @param algotithm 0-9
-	 * @return String description of work done
-	 */
-	String getPerformanceData(int algotithm);
-	
+    /**
+     * Return data for specific algorithm
+     * 
+     * @param algotithm 0-9
+     * @return String description of work done
+     */
+    String getPerformanceData(int algotithm);
+    
 }

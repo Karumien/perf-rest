@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.CONFLICT)
 public class ClientSystemDuplicateException extends RuntimeException {
-	
-	private static final long serialVersionUID = 1L;
+    
+    private static final long serialVersionUID = 1L;
 
-	public ClientSystemDuplicateException(String code) {
-		super("Client's system exists: " + code);
-	}
-	
+    public ClientSystemDuplicateException(String code) {
+        super("Client's system exists: " + code);
+    }
+    
 }

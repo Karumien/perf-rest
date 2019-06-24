@@ -11,45 +11,68 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
-
- * Copyright (c) 2019 Karumien s.r.o.
- *
- * Karumien s.r.o. is not responsible for defects arising from 
- * unauthorized changes to the source code.
- */
 package com.karumien.cloud.perf.model;
 
-import java.math.BigInteger;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * Entity represent performance data.
- *
- * @author <a href="viliam.litavec@karumien.com">Viliam Litavec</a>
- * @since 1.0, 10. 6. 2019 13:55:47
- */
 @Entity
 @Table(name = "PERF_DATA")
 @Data
-@EqualsAndHashCode(of = "id")
-public class PerformanceData {
+@EqualsAndHashCode(of = "orderId")
+public class PerformanceData implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "REGION", length = 70)
+    private String region;
+    
+    @Column(name = "COUNTRY", length = 70)
+    private String country;
+    
+    @Column(name = "item_type", length = 70)
+    private String item_type;
+    
+    @Column(name = "sales_channel", length = 70)
+    private String salesChannel;
+    
+    @Column(name = "order_priority", length = 70)
+    private String orderPriority;
+    
+    @Column(name = "order_date")
+    private LocalDateTime orderDate;
+    
     @Id
-    @NotEmpty
-    @Column(name = "ID", nullable = false)
-    private BigInteger id;
+    @Column(name = "order_id")
+    private String orderId;
+    
+    @Column(name = "ship_date")
+    private LocalDateTime shipDate;
+    
+    @Column(name = "units_sold")
+    private BigDecimal unitsSold;
+    
+    @Column(name = "unit_price")
+    private BigDecimal unitsPrice;
+    
+    @Column(name = "unit_cost")
+    private BigDecimal unitsCost;
 
-    @NotEmpty
-    @Column(name = "NAME", length = 70, nullable = false)
-    private String name;
-
+    @Column(name = "total_revenue")
+    private BigDecimal totalRevenue;
+    
+    @Column(name = "total_cost")
+    private BigDecimal totalCost;
+    
+    @Column(name = "total_profit")
+    private BigDecimal totalProfit;
 }

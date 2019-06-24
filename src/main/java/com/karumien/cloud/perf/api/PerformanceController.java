@@ -24,42 +24,42 @@ import com.karumien.cloud.perf.service.PerformanceDataService;
  * REST Controller for Performance Service (API).
  *
  * @author <a href="miroslav.svoboda@karumien.com">Miroslav Svoboda</a>
- * @since 1.0, 15. 6. 2019 17:57:22 
+ * @since 1.0, 15. 6. 2019 17:57:22
  */
 @RestController
 public class PerformanceController implements PerfApi {
 
-	@Autowired
-	private PerformanceDataService performanceDataService;
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ResponseEntity<PerfWorkDTO> getWork(Integer id, @Valid Boolean nowork, @Valid Integer delay) {
-	
-		PerfWorkDTO perfWork = new PerfWorkDTO();
-		perfWork.setId(id);
-		perfWork.setCategory(id % 10);
-		
-		perfWork.setStart(OffsetDateTime.now());
-		
-		if (Boolean.TRUE.equals(nowork)) {
-			delay = delay != null && delay > 0 ? delay : 100;
-			try {
-				Thread.sleep(delay);
-			} catch (InterruptedException e) {
-				 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			perfWork.setResult("nowork-" + delay);
-		} else {
-			perfWork.setResult(performanceDataService.getPerformanceData(perfWork.getCategory()));
-		}
-		
-		perfWork.setEnd(OffsetDateTime.now());
+    @Autowired
+    private PerformanceDataService performanceDataService;
 
-		perfWork.setLength(Duration.between(perfWork.getStart(), perfWork.getEnd()).toMillis());
-		return new ResponseEntity<>(perfWork, HttpStatus.OK);
-	}
-	
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ResponseEntity<PerfWorkDTO> getWork(Integer id, @Valid Integer category, @Valid Boolean nowork, @Valid Integer delay) {
+
+        PerfWorkDTO perfWork = new PerfWorkDTO();
+        perfWork.setId(id);
+        perfWork.setCategory(category != null && category >= 0 ? category : id % 10);
+
+        perfWork.setStart(OffsetDateTime.now());
+
+        if (Boolean.TRUE.equals(nowork)) {
+            delay = delay != null && delay > 0 ? delay : 100;
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            perfWork.setResult("nowork-" + delay);
+        } else {
+            perfWork.setResult(performanceDataService.getPerformanceData(perfWork.getCategory()));
+        }
+
+        perfWork.setEnd(OffsetDateTime.now());
+
+        perfWork.setLength(Duration.between(perfWork.getStart(), perfWork.getEnd()).toMillis());
+        return new ResponseEntity<>(perfWork, HttpStatus.OK);
+    }
+    
 }

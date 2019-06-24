@@ -9,15 +9,25 @@
 
     <changeSet id="Create base data table" author="Viliam Litavec">
 
-        <createTable tableName="PERF_DATA">
-            <column name="ID" type="bigint">
-                <constraints primaryKey="true" nullable="false" />
+         <createTable tableName="PERF_DATA">
+            <column name="REGION" type="varchar(70)"/>
+            <column name="COUNTRY" type="varchar(70)"/>
+            <column name="item_type" type="varchar(70)"/>
+            <column name="sales_channel" type="varchar(70)"/>
+            <column name="order_priority" type="varchar(70)"/>
+            <column name="order_date" type="date"/>
+            <column name="order_id" type="varchar(70)">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="NAME" type="varchar(70)">
-                <constraints nullable="true" />
-            </column>
+            <column name="ship_date" type="date"/>
+            <column name="units_sold" type="bigint"/>
+            <column name="unit_price" type="bigint"/>
+            <column name="unit_cost" type="bigint"/>
+            <column name="total_revenue" type="bigint"/>
+            <column name="total_cost" type="bigint"/>
+            <column name="total_profit" type="bigint"/>    
         </createTable>
-
+        
     </changeSet>
      
 </databaseChangeLog>

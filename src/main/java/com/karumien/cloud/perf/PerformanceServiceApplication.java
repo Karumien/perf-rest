@@ -22,8 +22,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@EnableFeignClients
 public class PerformanceServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PerformanceServiceApplication.class, args);
-	}
-	
+    public static void main(String[] args) {
+        SpringApplication.run(PerformanceServiceApplication.class, args);
+    }
+    
 }
