@@ -40,7 +40,7 @@ public class PerformanceController implements PerfApi {
 
         PerfWorkDTO perfWork = new PerfWorkDTO();
         perfWork.setId(id);
-        perfWork.setCategory(category != null && category >= 0 ? category : id % 10);
+        perfWork.setCategory(category != null && category >= 0 ? category % 10 : id % 10);
 
         perfWork.setStart(OffsetDateTime.now());
 
