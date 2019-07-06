@@ -23,6 +23,6 @@ spring:
   datasource:
     continue-on-error: false
 server:  
+  undertow:
+    worker-threads: 500
   port: ${PORT:2201}
-    
-    
