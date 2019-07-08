@@ -64,9 +64,9 @@ public interface PerformanceDataRepository extends JpaRepository<PerformanceData
 		+ " group by td.UNITS_SOLD, country, region", nativeQuery = true)
     List<Long> salesMultiSelects2();
 	
-	@Query(value = "select first.TOTAL_PROFIT"
-		+ " from (select * from PERF_DATA  where  TOTAL_PROFIT > 1000 and TOTAL_PROFIT < 1020) first"
-		+ " left join PERF_DATA  tri on tri.ORDER_PRIORITY = first.ORDER_PRIORITY group by first.order_id", nativeQuery = true)
+	@Query(value = "select distinct first.TOTAL_PROFIT from PERF_DATA first"
+		+ " left join PERF_DATA  tri on (tri.ORDER_PRIORITY = first.ORDER_PRIORITY)"
+		+ " where first.TOTAL_PROFIT > 1000 and first.TOTAL_PROFIT < 4120", nativeQuery = true)
     List<Long> salesMultiSelects3();
 	
 	@Query(value = "select count (tri.*) from (select * from PERF_DATA  where  TOTAL_PROFIT > 1000 and TOTAL_PROFIT < 1050)"
