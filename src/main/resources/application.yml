@@ -22,6 +22,7 @@ spring:
       path: /h2-console
   datasource:
     continue-on-error: false
+    max-active: 500
 server:  
   undertow:
     worker-threads: 500
