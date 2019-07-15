@@ -30,44 +30,39 @@ import com.karumien.cloud.perf.model.PerformanceData;
  */
 public interface PerformanceDataRepository extends JpaRepository<PerformanceData, Long>  {
 	
-	@Query("select qm from PerformanceData qm where qm.region like :region%")
-    List<PerformanceData> findAllByRegion(@Param("region") String region);
+	@Query("select count(qm) from PerformanceData qm where qm.region like :region%")
+    Long findAllByRegion(@Param("region") String region);
 	
-	@Query("select qm from PerformanceData qm where qm.country like %:country%")
-    List<PerformanceData> findAllByCountry(@Param("country") String country);
+	@Query("select count(qm) from PerformanceData qm where qm.country like %:country%")
+    Long findAllByCountry(@Param("country") String country);
 	
-	@Query("select qm from PerformanceData qm where qm.salesChannel like %:channel%")
-    List<PerformanceData> findAllBySalesChannel(@Param("channel") String channel);
+	@Query("select count(qm) from PerformanceData qm where qm.salesChannel like %:channel%")
+    Long findAllBySalesChannel(@Param("channel") String channel);
 	
-	@Query("select qm.unitsSold * qm.unitsPrice from PerformanceData qm where qm.country like %:country%")
-    List<BigDecimal> calculateSalesForCountry (@Param("country") String country);
+	@Query("select sum(qm.unitsSold * qm.unitsPrice) from PerformanceData qm where qm.country like %:country%")
+    BigDecimal calculateSalesForCountry (@Param("country") String country);
 	
-	@Query(value = "SELECT Count(UNITS_SOLD) FROM PERF_DATA td WHERE td.UNITS_SOLD  > 1000" 
-		+ " group by td.UNITS_SOLD, country", nativeQuery = true)
-    List<Long> salesByCountryGrouping();
+	@Query(value = "select count (*) from (select  qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc)", nativeQuery = true)
+    Long algoritmus4();
 	
-	@Query(value = "SELECT Count(UNITS_SOLD) FROM PERF_DATA td WHERE td.UNITS_SOLD  > 1000" 
-		+ " and order_id in (select order_id from PERF_DATA  where total_profit > 5000)" 
-		+ " group by td.UNITS_SOLD, country, region", nativeQuery = true)
-    List<Long> salesByCountryGroupingSubSelect();
+	@Query(value = "select count (*) from (select distinct qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs group by qs.ORDER_ID  order by qs.ORDER_ID desc)", nativeQuery = true)
+    Long algoritmus5();	
 	
-	@Query(value = "SELECT Count(UNITS_SOLD) FROM PERF_DATA td WHERE td.UNITS_SOLD  > 1000"
-		+ " and order_id in (select order_id from PERF_DATA  where total_profit > 5000)"
-		+ " and region in (select region from PERF_DATA  where region like '%as%' or region like '%eu%' group by region)"
-		+ " group by td.UNITS_SOLD, country, region", nativeQuery = true)
-    List<Long> salesMultiSelects();
+	@Query(value = "select count (*) from (select  top 10 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q \r\n" + 
+			"left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL", nativeQuery = true)
+    Long algoritmus6();
 	
-	@Query(value = "SELECT Count(UNITS_SOLD) FROM PERF_DATA td"
-		+ " WHERE td.UNITS_SOLD  > 1000 and" 
-		+ " order_id in (select order_id from PERF_DATA  where total_profit > 5000)"
-		+ " and region in (select region from PERF_DATA  where unit_cost > 50  and unit_cost < 100)"
-		+ " group by td.UNITS_SOLD, country, region", nativeQuery = true)
-    List<Long> salesMultiSelects2();
+	@Query(value = "select count (*) from (select  top 320 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q left join PERF_DATA  d on d.ITEM_TYPE= q.ITEM_TYPE where d.COUNTRY like '%Am%er%'", nativeQuery = true)
+    Long algoritmus7();
 	
-	@Query(value = "select distinct first.TOTAL_PROFIT from PERF_DATA first"
+	@Query(value = "select count (*) from (select  top 100 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q \r\n" + 
+			"left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL;", nativeQuery = true)
+    Long algoritmus8();
+	
+	@Query(value = "select distinct sum(first.TOTAL_PROFIT) from PERF_DATA first"
 		+ " left join PERF_DATA  tri on (tri.ORDER_PRIORITY = first.ORDER_PRIORITY)"
 		+ " where first.TOTAL_PROFIT > 1000 and first.TOTAL_PROFIT < 4120", nativeQuery = true)
-    List<Long> salesMultiSelects3();
+    Long salesMultiSelects3();
 	
 	@Query(value = "select count (tri.*) from (select * from PERF_DATA  where  TOTAL_PROFIT > 1000 and TOTAL_PROFIT < 1050)"
         + " first left join PERF_DATA  tri on tri.ORDER_PRIORITY = first.ORDER_PRIORITY", nativeQuery = true)
