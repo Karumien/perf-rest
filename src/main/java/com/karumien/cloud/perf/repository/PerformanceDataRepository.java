@@ -14,7 +14,6 @@
 package com.karumien.cloud.perf.repository;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -42,21 +41,19 @@ public interface PerformanceDataRepository extends JpaRepository<PerformanceData
 	@Query("select sum(qm.unitsSold * qm.unitsPrice) from PerformanceData qm where qm.country like %:country%")
     BigDecimal calculateSalesForCountry (@Param("country") String country);
 	
-	@Query(value = "select count (*) from (select  qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc)", nativeQuery = true)
+	@Query(value = "select count (*) from (select  qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q", nativeQuery = true)
     Long algoritmus4();
 	
-	@Query(value = "select count (*) from (select distinct qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs group by qs.ORDER_ID  order by qs.ORDER_ID desc)", nativeQuery = true)
+	@Query(value = "select count (*) from (select distinct qs.UNITS_SOLD, qs.ORDER_ID from PERF_DATA qs group by qs.ORDER_ID  order by qs.ORDER_ID desc) q", nativeQuery = true)
     Long algoritmus5();	
 	
-	@Query(value = "select count (*) from (select  top 10 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q \r\n" + 
-			"left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL", nativeQuery = true)
+	@Query(value = "select count (*) from (select qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc LIMIT 10) q left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL", nativeQuery = true)
     Long algoritmus6();
 	
-	@Query(value = "select count (*) from (select  top 320 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q left join PERF_DATA  d on d.ITEM_TYPE= q.ITEM_TYPE where d.COUNTRY like '%Am%er%'", nativeQuery = true)
+	@Query(value = "select count (*) from (select qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc LIMIT 320) q left join PERF_DATA  d on d.ITEM_TYPE= q.ITEM_TYPE where d.COUNTRY like '%Am%er%'", nativeQuery = true)
     Long algoritmus7();
 	
-	@Query(value = "select count (*) from (select  top 100 qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc) q \r\n" + 
-			"left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL;", nativeQuery = true)
+	@Query(value = "select count (*) from (select qs.ITEM_TYPE, qs.SALES_CHANNEL, qs.ORDER_ID from PERF_DATA qs order by qs.ORDER_ID desc LIMIT 100) q left join PERF_DATA  d on d.SALES_CHANNEL= q.SALES_CHANNEL;", nativeQuery = true)
     Long algoritmus8();
 	
 	@Query(value = "select distinct sum(first.TOTAL_PROFIT) from PERF_DATA first"
