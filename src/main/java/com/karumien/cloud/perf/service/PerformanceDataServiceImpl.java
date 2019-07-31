@@ -36,35 +36,35 @@ public class PerformanceDataServiceImpl implements PerformanceDataService {
         
         BigInteger result = BigInteger.ZERO;
         switch (algorithm) {
-        case 1:
-            result = BigInteger.valueOf(performanceDataRepository.findAll().size());
-            break;
-        case 2:
-            result = BigInteger.valueOf(performanceDataRepository.findAllByCountry("M"));
-            break;
-        case 3:
+        case 0:
             result = performanceDataRepository.calculateSalesForCountry("Tanz").toBigInteger();
             break;
-        case 4:
+        case 1:
+            result = BigInteger.valueOf(performanceDataRepository.findAllByCountry("M"));
+            break;
+        case 2:
+            result = BigInteger.valueOf(performanceDataRepository.algoritmus7());
+            break;
+        case 3:
             result = BigInteger.valueOf(performanceDataRepository.algoritmus4());
+            break;
+        case 4:
+            result = BigInteger.valueOf(performanceDataRepository.algoritmus6());
             break;
         case 5:
             result = BigInteger.valueOf(performanceDataRepository.algoritmus5());
             break;
         case 6:
-            result = BigInteger.valueOf(performanceDataRepository.algoritmus6());
-            break;
-        case 8:
-            result = BigInteger.valueOf(performanceDataRepository.algoritmus7());
-            break;
-        case 9:
-            result = BigInteger.valueOf(performanceDataRepository.algoritmus8());
-            break;
-        case 0:
-            result = BigInteger.valueOf(performanceDataRepository.salesMultiSelects3());
+            result = BigInteger.valueOf(performanceDataRepository.salesMultiSelects4());
             break;
         case 7:
-            result = BigInteger.valueOf(performanceDataRepository.salesMultiSelects4());
+            result = BigInteger.valueOf(performanceDataRepository.algoritmus8());
+            break;
+        case 8:
+            result = BigInteger.valueOf(performanceDataRepository.findAll().size());
+            break;
+        case 9:
+            result = BigInteger.valueOf(performanceDataRepository.salesMultiSelects3());
             break;
         default:
             break;
