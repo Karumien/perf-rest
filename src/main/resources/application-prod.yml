@@ -1,6 +1,7 @@
 spring:
   jpa:
     show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
   h2:
     console:
       enabled: false
