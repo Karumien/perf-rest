@@ -7,12 +7,15 @@
 package com.karumien.cloud.perf.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.karumien.cloud.perf.service.VersionInfoService;
+
+import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
 
 /**
  * Home redirection to swagger api documentation.
@@ -26,9 +29,12 @@ public class HomeController {
     @Autowired
     private VersionInfoService versionInfoService;
     
+    @Value("${server.servlet.contextPath:}")
+    private String contextPath;
+
     @RequestMapping(value = "/")
     public String index() {
-        return "redirect:swagger-ui.html";
+        return "redirect:" + (StringUtils.isBlank(contextPath) ? "" : contextPath + "/") + "swagger-ui.html";
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/version", produces="text/html")    

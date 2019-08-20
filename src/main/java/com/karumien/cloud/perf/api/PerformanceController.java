@@ -20,6 +20,8 @@ import com.karumien.cloud.perf.api.handler.PerfApi;
 import com.karumien.cloud.perf.api.model.PerfWorkDTO;
 import com.karumien.cloud.perf.service.PerformanceDataService;
 
+import io.swagger.annotations.Api;
+
 /**
  * REST Controller for Performance Service (API).
  *
@@ -27,6 +29,7 @@ import com.karumien.cloud.perf.service.PerformanceDataService;
  * @since 1.0, 15. 6. 2019 17:57:22
  */
 @RestController
+@Api(value = "Performance Service", description = "REST API for Performance DB Test Service", tags = { "Performance Service" })
 public class PerformanceController implements PerfApi {
 
     @Autowired

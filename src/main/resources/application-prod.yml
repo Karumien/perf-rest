@@ -10,3 +10,6 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driverClassName: org.postgresql.Driver  
+server:
+  servlet:
+    contextPath: /api
