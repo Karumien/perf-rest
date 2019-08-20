@@ -37,10 +37,10 @@ public class SwaggerConfiguration {
     @Bean
     public Docket api10() {
         return new Docket(DocumentationType.SWAGGER_2).groupName("perf-service-api-1.0").select()
-            .apis(RequestHandlerSelectors.basePackage("com.karumien.cloud.perf.api")).paths(PathSelectors.regex("/perf/.*")).build()
+            .apis(RequestHandlerSelectors.basePackage("com.karumien.cloud.perf.api")).paths(PathSelectors.regex("/test/.*")).build()
             .produces(Collections.singleton(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .apiInfo(new ApiInfoBuilder().version("1.0").title("Performance Service API Documentation")
-            .description("Methods for Performance Service.").build());
+            .description("Methods for Performance DB Test Service.").build());
     }
 
 }
