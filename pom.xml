@@ -29,7 +29,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         
-        <swagger.input>src/main/resources/perf-api.yaml</swagger.input>
+        <swagger.input>src/main/resources/perf-test-api.yaml</swagger.input>
         <swagger.package>com.karumien.cloud.perf.api</swagger.package>
         
         <docker.repository.url>cloud.docker.com/repository/docker/karumien</docker.repository.url>

@@ -16,8 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.karumien.cloud.perf.api.handler.PerfApi;
-import com.karumien.cloud.perf.api.model.PerfWorkDTO;
+import com.karumien.cloud.perf.api.handler.TestApi;
+import com.karumien.cloud.perf.api.model.PerfTestWorkDTO;
 import com.karumien.cloud.perf.service.PerformanceDataService;
 
 import io.swagger.annotations.Api;
@@ -30,7 +30,7 @@ import io.swagger.annotations.Api;
  */
 @RestController
 @Api(value = "Performance Service", description = "REST API for Performance DB Test Service", tags = { "Performance Service" })
-public class PerformanceController implements PerfApi {
+public class PerformanceTestController implements TestApi {
 
     @Autowired
     private PerformanceDataService performanceDataService;
@@ -39,9 +39,9 @@ public class PerformanceController implements PerfApi {
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<PerfWorkDTO> getWork(Integer id, @Valid Integer category, @Valid Boolean nowork, @Valid Integer delay) {
+    public ResponseEntity<PerfTestWorkDTO> getWork(Integer id, @Valid Integer category, @Valid Boolean nowork, @Valid Integer delay) {
 
-        PerfWorkDTO perfWork = new PerfWorkDTO();
+        PerfTestWorkDTO perfWork = new PerfTestWorkDTO();
         perfWork.setId(id);
         perfWork.setCategory(category != null && category >= 0 ? category % 10 : id % 10);
 

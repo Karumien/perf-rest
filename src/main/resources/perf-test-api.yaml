@@ -9,7 +9,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-basePath: /api/perf
+basePath: /api/v1/perf
 schemes:
   - http
 paths:
@@ -47,9 +47,9 @@ paths:
         '200':
           description: Successful operation
           schema:
-            $ref: '#/definitions/PerfWork'
+            $ref: '#/definitions/PerfTestWork'
 definitions:
-  PerfWork:
+  PerfTestWork:
     type: object
     description: Perfomance work description
     properties:
