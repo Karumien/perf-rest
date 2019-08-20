@@ -12,4 +12,4 @@ spring:
     driverClassName: org.postgresql.Driver  
 server:
   servlet:
-    contextPath: /api/perf
+    contextPath: ${CONTEXT_PATH:/api/perf}
