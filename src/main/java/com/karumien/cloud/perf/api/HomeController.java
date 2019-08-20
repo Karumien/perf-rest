@@ -29,12 +29,9 @@ public class HomeController {
     @Autowired
     private VersionInfoService versionInfoService;
     
-    @Value("${server.servlet.contextPath:}")
-    private String contextPath;
-
     @RequestMapping(value = "/")
     public String index() {
-        return "redirect:" + (StringUtils.isBlank(contextPath) ? "" : contextPath + "/") + "swagger-ui.html";
+        return "redirect:swagger-ui.html";
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/version", produces="text/html")    

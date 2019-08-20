@@ -5,15 +5,15 @@ info:
   termsOfService: 'http://www.karumien.com/terms/'
   contact:
     email: info@karumien.com
-  title: Performance Service
+  title: Performance DB Test Service
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-basePath: /api
+basePath: /api/perf
 schemes:
   - http
 paths:
-  /perf/{id}:
+  /test/{id}:
     get:
       summary: Execute work 
       description: Execute work identified by ID
